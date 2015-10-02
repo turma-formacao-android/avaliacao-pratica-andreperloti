@@ -1,5 +1,28 @@
 <resources>
     <string name="app_name">Agenda</string>
+    <string name="textViewName">Name</string>
+    <string name="textViewPhone">Phone</string>
+    <string name="cep">ZipCode</string>
+    <string name="tipoDeLogradouro">typeStreet</string>
+    <string name="logradouro">Street</string>
+    <string name="bairro">neighborhood</string>
+    <string name="cidade">city</string>
+    <string name="estado">state</string>
+    <string name="titleContacts">Contacts</string>
+    <string name="loading">Loading...</string>
+    <string name="save">Save</string>
+    <string name="requiredField">requiredField</string>
+    <string name="msgSuccess">Saved Successfully</string>
+    <string name="menu_label_edit">Edit</string>
+    <string name="menu_label_delete">Delete</string>
+    <string name="lbl_no">no</string>
+    <string name="msg_delete_success">delete success</string>
+    <string name="lbl_confirm">Confirm?</string>
+    <string name="msg_confirma_delete">Tem certeza que deseja apagar?</string>
+    <string name="lbl_yes">yes</string>
+    <string name="msg_add_telephone">Phone Add Success</string>
+    <string name="textViewEmail">Email</string>
+    <string name="textViewSocialNetworks">SocialNetworks</string>
 
 
 </resources>

@@ -1,6 +1,9 @@
 package br.com.cast.turmaformacao.agenda.controllers.util;
 
+import android.content.Context;
 import android.widget.EditText;
+
+import br.com.cast.turmaformacao.agenda.R;
 
 
 public class FormHelper {
@@ -9,16 +12,16 @@ public class FormHelper {
         super();
     }
 
-    public static boolean validateRequired(String requiredMessage, EditText... editTexts ){
-        boolean hasRequired =false;
-
-        for(EditText editText: editTexts){
-            String textvalue = editText.getText().toString();
-            if(textvalue.trim().isEmpty()){
-                editText.setError(requiredMessage);
-                hasRequired = true;
+    public static boolean requiredValidate(Context context, EditText... editTexts){
+        boolean isValid = true;
+        for (EditText editText : editTexts){
+            String value = editText.getText() == null ? null : editText.getText().toString();
+            if(editText.getText() == null || value.trim().isEmpty()){
+                String errorMessage = context.getString(R.string.requiredField);
+                editText.setError(errorMessage);
+                isValid = false;
             }
         }
-        return hasRequired;
+        return  isValid;
     }
 }

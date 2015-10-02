@@ -3,6 +3,13 @@ package br.com.cast.turmaformacao.agenda.controllers.model.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Arrays;
+import java.util.List;
+
+import br.com.cast.turmaformacao.agenda.controllers.model.http.Address;
+import br.com.cast.turmaformacao.agenda.controllers.model.persistence.ContactRepository;
+import br.com.cast.turmaformacao.agenda.controllers.model.services.ContactBusinessService;
+
 /**
  * Created by Administrador on 01/10/2015.
  */
@@ -10,15 +17,15 @@ public class Contact implements Parcelable {
 
     private Long id;
     private String name;
-    private Long age;
-    private String address;
     private String phone;
-    private String zipCode;
-    private String typeOfStreet;
-    private String street;
-    private String neighborhood;
-    private String city;
-    private String state;
+    private String email;
+    private String SocialNetworks;
+
+    private Address address;
+
+    private Phone[] phones;
+    private Email[] emails;
+    private Social[] social;
 
     public Contact() {
     }
@@ -28,15 +35,13 @@ public class Contact implements Parcelable {
         return "Contact{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", typeOfStreet='" + typeOfStreet + '\'' +
-                ", street='" + street + '\'' +
-                ", neighborhood='" + neighborhood + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
+                ", email='" + email + '\'' +
+                ", SocialNetworks='" + SocialNetworks + '\'' +
+                ", address=" + address +
+                ", phones=" + Arrays.toString(phones) +
+                ", emails=" + Arrays.toString(emails) +
+                ", social=" + Arrays.toString(social) +
                 '}';
     }
 
@@ -49,15 +54,16 @@ public class Contact implements Parcelable {
 
         if (!id.equals(contact.id)) return false;
         if (!name.equals(contact.name)) return false;
-        if (!age.equals(contact.age)) return false;
-        if (!address.equals(contact.address)) return false;
         if (!phone.equals(contact.phone)) return false;
-        if (!zipCode.equals(contact.zipCode)) return false;
-        if (!typeOfStreet.equals(contact.typeOfStreet)) return false;
-        if (!street.equals(contact.street)) return false;
-        if (!neighborhood.equals(contact.neighborhood)) return false;
-        if (!city.equals(contact.city)) return false;
-        return state.equals(contact.state);
+        if (!email.equals(contact.email)) return false;
+        if (!SocialNetworks.equals(contact.SocialNetworks)) return false;
+        if (!address.equals(contact.address)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(phones, contact.phones)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(emails, contact.emails)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(social, contact.social);
 
     }
 
@@ -65,17 +71,16 @@ public class Contact implements Parcelable {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + age.hashCode();
-        result = 31 * result + address.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + zipCode.hashCode();
-        result = 31 * result + typeOfStreet.hashCode();
-        result = 31 * result + street.hashCode();
-        result = 31 * result + neighborhood.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + state.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + SocialNetworks.hashCode();
+        result = 31 * result + address.hashCode();
+        result = 31 * result + Arrays.hashCode(phones);
+        result = 31 * result + Arrays.hashCode(emails);
+        result = 31 * result + Arrays.hashCode(social);
         return result;
     }
+
 
     public Long getId() {
         return id;
@@ -93,22 +98,6 @@ public class Contact implements Parcelable {
         this.name = name;
     }
 
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -117,52 +106,52 @@ public class Contact implements Parcelable {
         this.phone = phone;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getEmail() {
+        return email;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getTypeOfStreet() {
-        return typeOfStreet;
+    public String getSocialNetworks() {
+        return SocialNetworks;
     }
 
-    public void setTypeOfStreet(String typeOfStreet) {
-        this.typeOfStreet = typeOfStreet;
+    public void setSocialNetworks(String socialNetworks) {
+        SocialNetworks = socialNetworks;
     }
 
-    public String getStreet() {
-        return street;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
+    public Phone[] getPhones() {
+        return phones;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
+    public void setPhones(Phone[] phones) {
+        this.phones = phones;
     }
 
-    public String getCity() {
-        return city;
+    public Email[] getEmails() {
+        return emails;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setEmails(Email[] emails) {
+        this.emails = emails;
     }
 
-    public String getState() {
-        return state;
+    public Social[] getSocial() {
+        return social;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setSocial(Social[] social) {
+        this.social = social;
     }
 
 
@@ -175,29 +164,25 @@ public class Contact implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.id);
         dest.writeString(this.name);
-        dest.writeValue(this.age);
-        dest.writeString(this.address);
         dest.writeString(this.phone);
-        dest.writeString(this.zipCode);
-        dest.writeString(this.typeOfStreet);
-        dest.writeString(this.street);
-        dest.writeString(this.neighborhood);
-        dest.writeString(this.city);
-        dest.writeString(this.state);
+        dest.writeString(this.email);
+        dest.writeString(this.SocialNetworks);
+        dest.writeParcelable(this.address, 0);
+        dest.writeParcelableArray(this.phones, 0);
+        dest.writeParcelableArray(this.emails, 0);
+        dest.writeParcelableArray(this.social, 0);
     }
 
     protected Contact(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.name = in.readString();
-        this.age = (Long) in.readValue(Long.class.getClassLoader());
-        this.address = in.readString();
         this.phone = in.readString();
-        this.zipCode = in.readString();
-        this.typeOfStreet = in.readString();
-        this.street = in.readString();
-        this.neighborhood = in.readString();
-        this.city = in.readString();
-        this.state = in.readString();
+        this.email = in.readString();
+        this.SocialNetworks = in.readString();
+        this.address = in.readParcelable(Address.class.getClassLoader());
+        this.phones = (Phone[]) in.readParcelableArray(Phone.class.getClassLoader());
+        this.emails = (Email[]) in.readParcelableArray(Email.class.getClassLoader());
+        this.social = (Social[]) in.readParcelableArray(Social.class.getClassLoader());
     }
 
     public static final Creator<Contact> CREATOR = new Creator<Contact>() {

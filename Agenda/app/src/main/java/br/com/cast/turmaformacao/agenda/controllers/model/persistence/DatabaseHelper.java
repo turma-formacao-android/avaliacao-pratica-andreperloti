@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import br.com.cast.turmaformacao.agenda.controllers.model.entities.Email;
+import br.com.cast.turmaformacao.agenda.controllers.model.entities.Phone;
+import br.com.cast.turmaformacao.agenda.controllers.model.entities.Social;
 import br.com.cast.turmaformacao.agenda.controllers.util.ApplicationUtil;
 
 /**
@@ -24,8 +27,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        db.execSQL(ProductContract.getCreateTableScript());
-
+        db.execSQL(ContactContract.getCreateTableScript());
+        db.execSQL(EmailContract.getCreateTableScript());
+        db.execSQL(PhoneContract.getCreateTableScript());
+        db.execSQL(SocialContract.getCreateTableScript());
     }
 
     @Override

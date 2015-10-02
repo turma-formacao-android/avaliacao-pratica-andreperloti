@@ -1,9 +1,12 @@
 package br.com.cast.turmaformacao.agenda.controllers.model.http;
 
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-public class Address {
+public class Address implements Parcelable {
 
     @JsonProperty("cep")
     private String zipCode;
@@ -113,4 +116,39 @@ public class Address {
     public void setState(String state) {
         this.state = state;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.zipCode);
+        dest.writeString(this.type);
+        dest.writeString(this.street);
+        dest.writeString(this.neighborhood);
+        dest.writeString(this.city);
+        dest.writeString(this.state);
+    }
+
+    protected Address(Parcel in) {
+        this.zipCode = in.readString();
+        this.type = in.readString();
+        this.street = in.readString();
+        this.neighborhood = in.readString();
+        this.city = in.readString();
+        this.state = in.readString();
+    }
+
+    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
+        public Address createFromParcel(Parcel source) {
+            return new Address(source);
+        }
+
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
 }
